@@ -1,5 +1,6 @@
 import './App.css';
 import Welcome from './components/welcome';
+import Reverse from './components/reverse';
 
 function App() {
   return (
@@ -9,6 +10,12 @@ function App() {
       <Welcome nome = "maria"/>
       <Welcome nome = "joão" sobrenome='santos'/>
       <Welcome/>
+      {/* <Reverse texto = "ola"/>
+      <Reverse texto = "meu texto"/> */}
+
+      <Reverse>
+        meu texto
+      </Reverse>
     </div>
   );
 }

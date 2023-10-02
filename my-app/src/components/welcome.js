@@ -1,6 +1,8 @@
-function Welcome (props) {
+function Welcome ({nome = "Usuario",sobrenome = "Teste"}) {
+    //const {nome, sobrenome} = props
+    //console.log(props)
     return (
-        <h1>Olá, {props.nome} {props.sobrenome} seja bem vindo !</h1>
+        <h1>Olá, {nome} {sobrenome} seja bem vindo !</h1>
     )
 }
 export default Welcome

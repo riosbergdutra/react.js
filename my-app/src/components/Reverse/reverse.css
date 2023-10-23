@@ -1,0 +1,8 @@
+.reverse-text{
+    font-weight: bold;
+    text-align: center;
+}
+
+.reverse-text span {
+    font-weight: lighter;
+}

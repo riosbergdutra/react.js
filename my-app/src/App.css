@@ -1,0 +1,15 @@
+.App {
+    background-color: #dfe6e9;
+    height: 100%;
+}
+.reverse {
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid #2d3436;
+    border-radius: 10px;
+    padding: 10px;
+}
+.app-text{
+    color: #2d3436;
+    text-align: center;
+}

@@ -1,6 +1,7 @@
 import './App.css';
 import Welcome from './components/welcome';
 import Reverse from './components/Reverse/reverse';
+import Todolist from './components/todolist/todolist';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         meu texto que deve ser invertido
       </Reverse>
       </div>
+      <Todolist/>
     </div>
   );
 }

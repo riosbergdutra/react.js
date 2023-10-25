@@ -1,6 +1,7 @@
 .App {
     background-color: #dfe6e9;
-    height: 100%;
+    height: 95vh;
+    width: 100%;
 }
 .reverse {
     width: 50%;

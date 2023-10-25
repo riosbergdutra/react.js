@@ -1,26 +1,19 @@
-import './todolist.css'
+import './todolist.css';
+import Todoitem from '../todoitem/todoitem';
 
 const Todolist = () => {
-    return(
+    const tarefas = ['ir ao mercado', 'estudar javascript','estudar react', 'lavar a louça', 'novo item'];
+
+    return (
         <section className="todolist">
             <h2 className='todo-title'>Minha Lista de Tarefas</h2>
             <ol className='todos'>
-                <li className='todo-item'>
-                <input type='checkbox'/>
-                Ir no mercado
-                </li>
-                <li className='todo-item'>
-                <input type='checkbox'/>
-                    Estudar 30min de javascript
-                    </li>
-                <li className='todo-item'>
-                <input type='checkbox'/>
-                    Meditar 30min
-                </li>
-
+            {tarefas.map(tarefa => (
+            <Todoitem tarefa={tarefa} key={tarefa} />
+            ))}
             </ol>
         </section>
-    )
+    );
 }
 
-export default Todolist
+export default Todolist;

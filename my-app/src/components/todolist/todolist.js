@@ -3,22 +3,38 @@ import './todolist.css';
 import Todoitem from '../todoitem/todoitem';
 
 const Todolist = () => {
-    const [tarefas, setTarefas] = useState(['ir ao supermercado'])
-    //const [contador, setContador] = useState(0)
-    //const tarefas = ['ir ao mercado', 'estudar javascript','estudar react', 'lavar a louça', 'novo item'];
-    const handleclick = () => {
-        console.log('clicou')
-      setTarefas([...tarefas,'cortar o cabelo'])
+    const [tarefas, setTarefas] = useState([]);
+    const [tarefatext, setTarefaText] = useState('');
+
+    const handlechange = (event) => {
+        setTarefaText(event.target.value);
     }
+
+    const handlesubmit = (event) => {
+        event.preventDefault(); // Correção: aqui estava com erro de digitação
+        setTarefas([...tarefas, tarefatext]);
+        setTarefaText(''); // Limpar o campo de entrada após o envio
+    }
+
     return (
         <section className="todolist">
             <h2 className='todo-title'>Minha Lista de Tarefas</h2>
+            <form className='todo-register' onSubmit={handlesubmit}>
+                <label htmlFor='tarefa'>Tarefa:</label>
+                <input
+                    type='text'
+                    id='tarefa'
+                    placeholder='digite a sua tarefa'
+                    value={tarefatext}
+                    onChange={handlechange}
+                />
+                <button type='submit'>Enviar</button>
+            </form>
             <ol className='todos'>
-            {tarefas.map(tarefa => (
-            <Todoitem tarefa={tarefa} key={tarefa} />
-            ))}
+                {tarefas.map((tarefa, index) => (
+                    <Todoitem tarefa={tarefa} key={index} />
+                ))}
             </ol>
-            <button onClick={handleclick}>adicionar tarefas</button>
         </section>
     );
 }

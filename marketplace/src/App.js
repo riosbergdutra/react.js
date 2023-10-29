@@ -1,8 +1,11 @@
 import './App.css';
 
+
 function App() {
   return (
-    <h1>meu app</h1>
+    <div>
+      <h1>meu app</h1>
+    </div>
   );
 }
 

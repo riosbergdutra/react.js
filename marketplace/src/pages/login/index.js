@@ -4,7 +4,7 @@ const Login = () => {
     return(
         <div>
             <h1>Minha tela de login</h1>
-            <Link to={'/'}>Vá PARA LOGIN</Link>
+            <Link to={'/'}>Vá PARA HOME</Link>
 
         </div>
     )

@@ -10,8 +10,11 @@ const Navmenu = () => {
                 </li>
                 <li>
                     <Link to='/login'>Login</Link>
+                    
                 </li>
-                
+                <li>
+                <Link to='/products'>Produtos</Link>
+                </li>
             </ul>
         </nav>    
     )

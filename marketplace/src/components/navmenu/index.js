@@ -15,6 +15,9 @@ const Navmenu = () => {
                 <li>
                 <Link to='/products'>Produtos</Link>
                 </li>
+                <li>
+                <Link to='/register'>Register</Link>
+                </li>
             </ul>
         </nav>    
     )

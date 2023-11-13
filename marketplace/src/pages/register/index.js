@@ -6,7 +6,7 @@ const Register = () => {
     const HandleSubmit = (event) =>{
         event.preventDefault()
         console.log('formulario enviado')
-        navigate('/products')
+        navigate('/products', {state: 'teste'})
     }
     return (
         <form onSubmit={HandleSubmit}>

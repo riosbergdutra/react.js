@@ -19,10 +19,20 @@ body {
 .bg-primary {
     background: #ea580c;
 }
+.text-primary {
+    color: #ea580c;
+}
+
 .home-banner {
     background-image:url('../src/assets/background.jpg');
     height: 400px;
     background-repeat: no-repeat;
     background-position: center center;
+    background-size: cover;
+}
+
+.banner {
+    background-image:url('../src/assets/background.jpg');
+    background-repeat: no-repeat;
     background-size: cover;
 }

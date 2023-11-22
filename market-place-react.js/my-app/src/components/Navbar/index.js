@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../../assets/logo.svg'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 const Navbar = () => {
+  const userLogged = useContext(AuthContext);
+  console.log(`valor do contexto`,userLogged);
+
   return (
     <header className='bg-transparent z-50 w-full'>
       <nav className='flex items-center max-w-screen-xl mx-auto px-6 py-3'>

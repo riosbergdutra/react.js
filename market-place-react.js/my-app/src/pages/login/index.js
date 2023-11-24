@@ -22,6 +22,13 @@ const navigate = useNavigate()
 
   const handleSubmit = (event) => {
     event.preventDefault()
+   /* futuramente vai colocar uma fetch com login const response = await fetch('http://localhost:3000/auth/login {
+    method: 'POST',
+    headers: {
+     'content:type': 'aplication/json
+    },
+    body: JSON.stringfy(inputValues)
+    //})*/
     alert(`usuario ${inputValues.email} logado com sucesso`)
     navigate('/')
   }

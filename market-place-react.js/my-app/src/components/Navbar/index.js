@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 const Navbar = () => {
   const userLogged = useContext(AuthContext);
-  console.log(`valor do contexto`,userLogged);
+console.log(`valor do contexto`, userLogged);
   const navigate = useNavigate()
 
   return (
@@ -16,7 +16,7 @@ const Navbar = () => {
           <h1 className='text-center text-3xl font-semibold text-gray-700'><Link to='/'>Food App</Link></h1>
         </div>
         <div className='flex items-center justify-end space-x-6'>
-          <button onClick={navigate('/login')}><Link to='/login'>Login</Link></button>
+          <button onClick={()=>navigate('/login')}><Link to='/login'>Login</Link></button>
           <button className='bg-primary px-6 py-3 text-white rounded-full transition duration-700 hover:scale-105'>Register</button>
         </div>
       </nav>

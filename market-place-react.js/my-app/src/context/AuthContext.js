@@ -1,27 +1,69 @@
-import React, { createContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { createContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const AuthContext = createContext()
-const AuthProvider = ({children}) => {
-    const [userLogged, setUserLogged] = useState(false)
-    const navigate = useNavigate()
-    const loginUser = async (inputValues) => {
-      const response = await fetch('http://localhost:5000/usuario/create', {
+const AuthContext = createContext();
+
+const AuthProvider = ({ children }) => {
+  // Estado para controlar se o usuário está logado ou não
+  const [userLogged, setUserLogged] = useState(false);
+
+  // Hook do React Router para navegação
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Tente obter os dados do usuário do localStorage ao iniciar a aplicação
+    const storedUserInfo = localStorage.getItem('userinfo');
+
+    if (storedUserInfo) {
+      // Se houver dados no localStorage, atualize o estado do usuário como logado
+      setUserLogged(true);
+    }
+  }, []); // Este efeito só é executado uma vez ao montar o componente
+
+  // Função para realizar o login do usuário
+  const loginUser = async (inputValues) => {
+    const response = await fetch('http://localhost:5000/usuario/create', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(inputValues)
-    })
-    console.log(response)
-    navigate('/')
-    setUserLogged(true)
-    }
-  return (
-    <AuthContext.Provider value={{userLogged, loginUser}}>
-        {children}
-    </AuthContext.Provider> 
-  )
-}   
+      body: JSON.stringify(inputValues),
+    });
 
-export  {AuthContext,AuthProvider}
+    if (response.ok) {
+      // Se a solicitação for bem-sucedida, obtenha os dados do usuário
+      const data = await response.json();
+      console.log('Dados do usuário:', data);
+
+      // Salve os dados do usuário no localStorage
+      localStorage.setItem('userinfo', JSON.stringify(data));
+      
+      // Atualize o estado do usuário como logado e redirecione para a página inicial
+      setUserLogged(true);
+      navigate('/');
+    } else {
+      // Se a solicitação falhar, registre um erro no console
+      console.error('Falha na solicitação de login:', response.status);
+    }
+  };
+
+  // Função para realizar o logout do usuário
+  const logout = () => {
+    // Limpe os dados do usuário no localStorage ao fazer logout
+    localStorage.removeItem('userinfo');
+    
+    // Atualize o estado do usuário como não logado e redirecione para a página de login
+    setUserLogged(false);
+    navigate('/login');
+  };
+
+  // Fornece o contexto para os componentes filhos
+  return (
+    <AuthContext.Provider value={{ userLogged, loginUser, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+// Exporta o contexto e o provedor para uso em outros componentes
+export { AuthContext, AuthProvider };

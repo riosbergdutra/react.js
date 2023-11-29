@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 const Navbar = () => {
-  const userLogged = useContext(AuthContext);
+  const {userLogged} = useContext(AuthContext);
 console.log(`valor do contexto`, userLogged);
   const navigate = useNavigate()
 

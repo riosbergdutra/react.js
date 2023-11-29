@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import logo from '../../assets/logo.svg';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
   const [inputValues, setInputValues] = useState({
     email: '',
     senha: ''
   });
-
+  const {loginUser} = useContext(AuthContext)
   const navigate = useNavigate();
 
   const handleChangeValues = (evento) => {
@@ -20,15 +21,7 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-   const response = await fetch('http://localhost:5000/usuario/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(inputValues)
-    })
-    console.log(response)
-      navigate('/');
+    loginUser(inputValues)
   }
 
   return (

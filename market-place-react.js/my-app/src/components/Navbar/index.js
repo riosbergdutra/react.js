@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import logo from '../../assets/logo.svg'
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import { BsFillCartFill } from "react-icons/bs";
+import { MdLogout } from "react-icons/md";
 
 const Navbar = () => {
   const {userLogged} = useContext(AuthContext);
@@ -15,10 +17,24 @@ console.log(`valor do contexto`, userLogged);
           <img src={logo} alt='logo' className='w-36 cursor-pointer'/>
           <h1 className='text-center text-3xl font-semibold text-gray-700'><Link to='/'>Food App</Link></h1>
         </div>
-        <div className='flex items-center justify-end space-x-6'>
+        {
+          userLogged ? (
+            <div className=' flex items-center justify-end space-x-4'>
+              <div className='relative flex cursor-pointer'>
+              <span className='bg-primary w-4 h-4 rounded-full p-1 flex items-center justify-center text-white absolute -right-2 -top-2'></span>
+              <BsFillCartFill className='w-6 h-6 cursor-pointer' />
+              </div>  
+                <img src='' alt=''/>
+                <p className='text-gray-700'> Bem Vindo, Nome do usuario</p>
+                <MdLogout className='w-6 h-6 cursor-pointer'/>
+               </div>
+          ) : (
+            <div className='flex items-center justify-end space-x-6'>
           <button onClick={()=>navigate('/login')}><Link to='/login'>Login</Link></button>
           <button className='bg-primary px-6 py-3 text-white rounded-full transition duration-700 hover:scale-105'>Register</button>
         </div>
+          )
+        }
       </nav>
     </header>
   );

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import logo from '../../assets/logo.svg';
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
@@ -9,7 +8,6 @@ const Login = () => {
     senha: ''
   });
   const {loginUser} = useContext(AuthContext)
-  const navigate = useNavigate();
 
   const handleChangeValues = (evento) => {
     setInputValues({

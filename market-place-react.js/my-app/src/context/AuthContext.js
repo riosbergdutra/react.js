@@ -6,6 +6,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   // Estado para controlar se o usuário está logado ou não
   const [userLogged, setUserLogged] = useState(false);
+  const [loading, setLoagind] = useState(true)
 
   // Hook do React Router para navegação
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const AuthProvider = ({ children }) => {
       // Se houver dados no localStorage, atualize o estado do usuário como logado
       setUserLogged(true);
     }
+    setLoagind(false)
   }, []); // Este efeito só é executado uma vez ao montar o componente
 
   // Função para realizar o login do usuário
@@ -49,13 +51,14 @@ const AuthProvider = ({ children }) => {
 
   // Função para realizar o logout do usuário
   const logout = () => {
-    // Limpe os dados do usuário no localStorage ao fazer logout
-    localStorage.removeItem('userinfo');
-    
-    // Atualize o estado do usuário como não logado e redirecione para a página de login
     setUserLogged(false);
+    localStorage.clear();
     navigate('/login');
   };
+
+  if(loading) {
+    return <h1>loading...</h1>
+  }
 
   // Fornece o contexto para os componentes filhos
   return (

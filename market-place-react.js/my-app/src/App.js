@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Login from './pages/login';
 import {AuthProvider} from './context/AuthContext';
+import ProctectedRoute from './routes/private-routes';
 
 function App() {
   return (
@@ -11,7 +12,11 @@ function App() {
     <AuthProvider>
     <Navbar/>
       <Routes>
-        <Route path='/' element={<Home/>}/>
+        <Route path='/' element={
+        <ProctectedRoute>
+          <Home/>
+        </ProctectedRoute>
+        }/>
         <Route path='/login' element={<Login/>}/>
       </Routes>
       </AuthProvider>

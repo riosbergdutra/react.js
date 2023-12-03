@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Login from './pages/login';
 import {AuthProvider} from './context/AuthContext';
 import ProctectedRoute from './routes/private-routes';
+import Notfound from './pages/notfound';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         </ProctectedRoute>
         }/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/*' element={<Notfound/>} />
       </Routes>
       </AuthProvider>
     </>

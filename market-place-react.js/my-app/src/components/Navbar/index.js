@@ -6,7 +6,7 @@ import { BsFillCartFill } from "react-icons/bs";
 import { MdLogout } from "react-icons/md";
 
 const Navbar = () => {
-  const {userLogged} = useContext(AuthContext);
+  const {userLogged, logout} = useContext(AuthContext);
 console.log(`valor do contexto`, userLogged);
   const navigate = useNavigate()
 
@@ -26,7 +26,7 @@ console.log(`valor do contexto`, userLogged);
               </div>  
                 <img src='' alt=''/>
                 <p className='text-gray-700'> Bem Vindo, Nome do usuario</p>
-                <MdLogout className='w-6 h-6 cursor-pointer'/>
+                <MdLogout className='w-6 h-6 cursor-pointer' onClick={logout}/>
                </div>
           ) : (
             <div className='flex items-center justify-end space-x-6'>

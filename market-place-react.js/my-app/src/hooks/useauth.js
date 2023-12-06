@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUserApi } from "../services/authservice";
 
 const UseAuth = () => {
    // Estado para controlar se o usuário está logado ou não
@@ -22,13 +23,7 @@ const UseAuth = () => {
  
    // Função para realizar o login do usuário
    const loginUser = async (inputValues) => {
-     const response = await fetch('http://localhost:5000/usuario/create', {
-       method: 'POST',
-       headers: {
-         'Content-Type': 'application/json',
-       },
-       body: JSON.stringify(inputValues),
-     });
+     const response = await loginUserApi(inputValues)
  
      if (response.ok) {
        // Se a solicitação for bem-sucedida, obtenha os dados do usuário

@@ -1,13 +1,23 @@
 import api from './api';
 
-const loginUserApi = (userValues) => 
-    api.post('/auth/create', userValues)
-        .then((response) => {
-            // Faça algo com a resposta aqui, se necessário
-            console.log(response);
-        })
-        .catch((err) => {
-            console.error(err);
-        });
+const loginUserApi = async (userValues) => {
+    try {
+        const response = await api.post('/usuario/find', userValues);
+        return response.data; // Retorna apenas os dados da resposta
+    } catch (error) {
+        console.error(error);
+        throw error; // Lança o erro para ser tratado no componente que chama esta função
+    }
+};
 
-        export { loginUserApi }
+const registerUser = async (adduserValues) => {
+    try {
+        const response = await api.post('/usuario/create', adduserValues);
+        return response.data; // Retorna apenas os dados da resposta
+    } catch (error) {
+        console.error("Error during registration:", error);
+        throw error; // Lança o erro para ser tratado no componente que chama esta função
+    }
+};
+
+export { loginUserApi, registerUser };

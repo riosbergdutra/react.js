@@ -19,5 +19,14 @@ const registerUser = async (adduserValues) => {
         throw error; // Lança o erro para ser tratado no componente que chama esta função
     }
 };
+const loginUserId = async (id) => {
+    try {
+        const response = await api.get(`/usuario/findById/${id}`);
+        return response.data; // Retorna apenas os dados da resposta
+    } catch (error) {
+        console.error(error);
+        throw error; // Lança o erro para ser tratado no componente que chama esta função
+    }
+};
 
-export { loginUserApi, registerUser };
+export { loginUserApi, registerUser, loginUserId };

@@ -4,14 +4,14 @@ import UseAuth from '../hooks/useauth';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const {userLogged, loading, loginUser, logout} = UseAuth()
+  const {userLogged, loading, loginUser, logout, userData} = UseAuth()
   if(loading) {
     return <h1>loading...</h1>
-  }
+  } 
 
   // Fornece o contexto para os componentes filhos
   return (
-    <AuthContext.Provider value={{ userLogged, loginUser, logout }}>
+    <AuthContext.Provider value={{ userLogged, loginUser, logout, userData }}>
       {children}
     </AuthContext.Provider>
   );

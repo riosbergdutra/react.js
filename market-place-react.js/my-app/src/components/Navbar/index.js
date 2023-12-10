@@ -29,6 +29,7 @@ const Navbar = () => {
             <p className='text-gray-700'>
                Bem Vindo, {userData.nome}!
             </p>
+            <Link to={'/admin'}>Admin</Link>
               {userData && userData.imagem && (
                 <img src={userData.imagem} alt='imagem do usuario' className='w-10 h-10 rounded-full' />
               )}

@@ -27,7 +27,7 @@ const Navbar = () => {
               <BsFillCartFill className='w-6 h-6 cursor-pointer' />
             </div>
             <p className='text-gray-700'>
-               Bem Vindo, {userData.nome}!
+               Bem Vindo, {userData.nome} !
             </p>
             <Link to={'/admin'}>Admin</Link>
               {userData && userData.imagem && (

@@ -7,6 +7,8 @@ import {AuthProvider} from './context/AuthContext';
 import ProctectedRoute from './routes/private-routes';
 import Notfound from './pages/notfound';
 import Register from './pages/register';
+import Admin from './pages/admin';
+import AddProduct from './pages/addproducts';
 
 function App() {
   return (
@@ -21,6 +23,13 @@ function App() {
         }/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
+        <Route path='/admin' element={<ProctectedRoute>
+          <Admin/>
+        </ProctectedRoute>}/>
+        <Route path='/add-product' element={<ProctectedRoute>
+          <AddProduct/>
+        </ProctectedRoute>}/>
+
 
         <Route path='/*' element={<Notfound/>} />
       </Routes>

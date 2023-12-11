@@ -28,28 +28,22 @@ const UseAuth = () => {
     try {
       const data = await loginUserApi(inputValues);
   
-      if (data && data.email && data.senha) {
+      if (data && data.email && data.senha && data.nome && data.imagem) {
         console.log('Dados do usuário após login:', data);
   
-        const updatedUserData = {
-          ...data,
-          nome: data.nome || '',
-          imagem: data.imagem || ''
-        };
-  
-        localStorage.setItem('userinfo', JSON.stringify({ id: data._id, nome: data.nome || '', imagem: data.imagem || '' }));
-        setUserData(updatedUserData);
+        localStorage.setItem('userinfo', JSON.stringify({ id: data._id, email: data.email, senha: data.senha, nome: data.nome, imagem: data.imagem }));
+        setUserData(data);
         setUserLogged(true);
         navigate('/');
       } else {
-        console.error('ID do usuário não encontrado nos dados:', data);
-        // Se o ID não está diretamente em data._id, ajuste de acordo com a estrutura da resposta da sua API
+        console.error('Dados do usuário incompletos:', data);
       }
     } catch (error) {
       console.error('Erro durante o login:', error);
       // Trate o erro conforme necessário
     }
   };
+  // Função para realizar o logout do usuário
   const logout = () => {
     setUserLogged(false);
     localStorage.clear();
@@ -60,4 +54,3 @@ const UseAuth = () => {
 }
 
 export default UseAuth;
-

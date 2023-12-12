@@ -1,26 +1,69 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { findAllCategories } from '../../services/categoryservice';
+import { MultiSelect } from "react-multi-select-component";
 
 const AddProduct = () => {
   const [productForm, setProdutForm] = useState({
     nome: "",
-    descicao: "",
+    descricao: "",
     precoUnitario: 0,
     imagem: "",
     codigoBarra: 0,
-    categoria: [{_id:""}],
-})
+    categoria: [{_id: ""}]
+  });
+const [categories, setCategories] = useState([])
+const [selected, setSelected] = useState([])
+  useEffect(() => {
+    getcategories()
+  }, [])
+const getcategories = async () => {
+  const response = await findAllCategories()
+  const categoriesSelect = response.map((categoria) => {
+    return {
+      value: categoria._id,
+      label: categoria.nome
+    }
+  })
+  setCategories(categoriesSelect)
+}
+
+const handleChangeValues = (evento) => {
+  setProdutForm({
+    ...productForm,
+    [evento.target.name]: evento.target.value
+  })
+  console.log(productForm)
+}
+
+const handleSubmit = (evento) => {
+  evento.preventDefault()
+  const categoriesId = selected.map(category => {
+    return {
+      _id: category.value
+    }
+  })
+  const product = {
+    ...productForm,
+    categorias: categoriesId,
+    precoUnitario: parseInt(productForm.precoUnitario),
+    codigoBarra: parseInt(productForm.codigoBarra)
+
+  }
+  console.log(product)
+}
   return (
     <section className='my-12 max-w-screen mx-auto px-6'>
       <div className='flex flex-col space-y-2'> 
         <h1 className='text-2xl text-gray-600'>Cadastro de produtos</h1>
       </div>
-      <form className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10 mt-6'>
+      <form onSubmit={handleSubmit} className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10 mt-6'>
         <div className='flex flex-col space-y-2'>
           <label htmlFor="nome" className='text-gray-500'>Nome</label>
           <input
             type='text'
             id='nome'
             name='nome'
+            onChange={handleChangeValues}
             required
             className='w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-red-300 focus:outline-none transition duration-300'
           />
@@ -31,6 +74,7 @@ const AddProduct = () => {
             id='descricao'
             cols={30}
             rows={5}
+            onChange={handleChangeValues}
             required
             className='border border-gray-300 rounded-lg py-3 px-4 w-full focus:border-red-500 focus:ring-red-300 focus:outline-none transition duration-300 resize-none'
           ></textarea>
@@ -40,6 +84,7 @@ const AddProduct = () => {
             type='text'
             id='codigoBarra'
             name='codigoBarra'
+            onChange={handleChangeValues}
             required
             className='w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-red-300 focus:outline-none transition duration-300'
           />
@@ -50,6 +95,7 @@ const AddProduct = () => {
             type='text'
             id='preco'
             name='precoUnitario'
+            onChange={handleChangeValues}
             required
             className='w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-red-300 focus:outline-none transition duration-300'
           />
@@ -59,6 +105,7 @@ const AddProduct = () => {
               type='text'
               id='imagem'
               name='imagem'
+              onChange={handleChangeValues}
               required
               className='w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-red-300 focus:outline-none transition duration-300'
             />
@@ -66,9 +113,12 @@ const AddProduct = () => {
             <label htmlFor="title" className='text-gray-500'>
               Categoria:
             </label>
-            <select name='' id=''className='w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-red-300 focus:outline-none transition duration-300'>
-              <option value=''></option>
-            </select>
+            <MultiSelect
+               options={categories}
+              value={selected}
+               onChange={setSelected}
+                labelledBy="Select"
+              />
               <div className='mt-8'>
                 <button className='w-full py-3 bg-primary text-white focus:outline-none focus:ring-4 mt-6 rounded-lg transition duration-300'>
                   Adicionar
@@ -80,4 +130,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default AddProduct

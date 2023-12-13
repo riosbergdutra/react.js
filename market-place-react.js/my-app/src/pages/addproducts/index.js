@@ -11,26 +11,33 @@ const AddProduct = () => {
     precoUnitario: 0,
     imagem: "",
     codigoBarra: 0,
-    categoria: [{_id: ""}]
+    categoria: [{ _id: "" }]
   });
   const [categories, setCategories] = useState([]);
   const [selected, setSelected] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getcategories();
+    const fetchData = async () => {
+      try {
+        const response = await findAllCategories();
+        
+        if (Array.isArray(response)) {
+          const categoriesSelect = response.map((categoria) => ({
+            value: categoria._id,
+            label: categoria.nome
+          }));
+          setCategories(categoriesSelect);
+        } else {
+          console.error('Erro: a resposta não é uma array:', response);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar categorias:', error);
+      }
+    };
+  
+    fetchData();
   }, []);
-
-  const getcategories = async () => {
-    const response = await findAllCategories();
-    const categoriesSelect = response.map((categoria) => {
-      return {
-        value: categoria._id,
-        label: categoria.nome
-      };
-    });
-    setCategories(categoriesSelect);
-  };
 
   const handleChangeValues = (evento) => {
     setProdutForm({
@@ -40,7 +47,7 @@ const AddProduct = () => {
     console.log(productForm);
   };
 
-  const handleSubmit = async (evento) => {
+  const handleSubmit = (evento) => {
     evento.preventDefault();
     const categoriesId = selected.map(category => {
       return {
@@ -53,12 +60,19 @@ const AddProduct = () => {
       precoUnitario: parseInt(productForm.precoUnitario),
       codigoBarra: parseInt(productForm.codigoBarra)
     };
-      const response =  addProductApi(product);
-      if (response) {
-        navigate('/admin');
-      }
-    
+
+    addProductApi(product)
+      .then(response => {
+        if (response) {
+          navigate('/admin');
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao adicionar o produto:', error);
+        // Lide com o erro conforme necessário
+      });
   };
+
   return (
     <section className='my-12 max-w-screen mx-auto px-6'>
       <div className='flex flex-col space-y-2'> 

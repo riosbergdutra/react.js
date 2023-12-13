@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { findAllCategories } from '../../services/categoryservice';
 import { MultiSelect } from "react-multi-select-component";
+import { addProductApi } from '../../services/productservice';
+import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
   const [productForm, setProdutForm] = useState({
@@ -11,46 +13,52 @@ const AddProduct = () => {
     codigoBarra: 0,
     categoria: [{_id: ""}]
   });
-const [categories, setCategories] = useState([])
-const [selected, setSelected] = useState([])
+  const [categories, setCategories] = useState([]);
+  const [selected, setSelected] = useState([]);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    getcategories()
-  }, [])
-const getcategories = async () => {
-  const response = await findAllCategories()
-  const categoriesSelect = response.map((categoria) => {
-    return {
-      value: categoria._id,
-      label: categoria.nome
-    }
-  })
-  setCategories(categoriesSelect)
-}
+    getcategories();
+  }, []);
 
-const handleChangeValues = (evento) => {
-  setProdutForm({
-    ...productForm,
-    [evento.target.name]: evento.target.value
-  })
-  console.log(productForm)
-}
+  const getcategories = async () => {
+    const response = await findAllCategories();
+    const categoriesSelect = response.map((categoria) => {
+      return {
+        value: categoria._id,
+        label: categoria.nome
+      };
+    });
+    setCategories(categoriesSelect);
+  };
 
-const handleSubmit = (evento) => {
-  evento.preventDefault()
-  const categoriesId = selected.map(category => {
-    return {
-      _id: category.value
-    }
-  })
-  const product = {
-    ...productForm,
-    categorias: categoriesId,
-    precoUnitario: parseInt(productForm.precoUnitario),
-    codigoBarra: parseInt(productForm.codigoBarra)
+  const handleChangeValues = (evento) => {
+    setProdutForm({
+      ...productForm,
+      [evento.target.name]: evento.target.value
+    });
+    console.log(productForm);
+  };
 
-  }
-  console.log(product)
-}
+  const handleSubmit = async (evento) => {
+    evento.preventDefault();
+    const categoriesId = selected.map(category => {
+      return {
+        _id: category.value
+      };
+    });
+    const product = {
+      ...productForm,
+      categorias: categoriesId,
+      precoUnitario: parseInt(productForm.precoUnitario),
+      codigoBarra: parseInt(productForm.codigoBarra)
+    };
+      const response =  addProductApi(product);
+      if (response) {
+        navigate('/admin');
+      }
+    
+  };
   return (
     <section className='my-12 max-w-screen mx-auto px-6'>
       <div className='flex flex-col space-y-2'> 

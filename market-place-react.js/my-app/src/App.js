@@ -9,6 +9,7 @@ import Notfound from './pages/notfound';
 import Register from './pages/register';
 import Admin from './pages/admin';
 import AddProduct from './pages/addproducts';
+import EditProduct from './pages/editproduct';
 
 function App() {
   return (
@@ -26,10 +27,12 @@ function App() {
         <Route path='/admin' element={<ProctectedRoute>
           <Admin/>
         </ProctectedRoute>}/>
-        <Route path='/add-product' element={<ProctectedRoute>
+        <Route path='/admin/add-product' element={<ProctectedRoute>
           <AddProduct/>
         </ProctectedRoute>}/>
-
+        <Route path='/admin/edit-product/:id' element={<ProctectedRoute>
+          <EditProduct/>
+        </ProctectedRoute>}/>
 
         <Route path='/*' element={<Notfound/>} />
       </Routes>

@@ -5,14 +5,15 @@ import { addProductApi } from '../../services/productservice';
 import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
-  const [productForm, setProdutForm] = useState({
+  const [productForm, setProductForm] = useState({
     nome: "",
     descricao: "",
     precoUnitario: 0,
     imagem: "",
     codigoBarra: 0,
-    categoria: [{ _id: "" }]
+    categoria: "" 
   });
+
   const [categories, setCategories] = useState([]);
   const [selected, setSelected] = useState([]);
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const AddProduct = () => {
     const fetchData = async () => {
       try {
         const response = await findAllCategories();
-        
+
         if (Array.isArray(response)) {
           const categoriesSelect = response.map((categoria) => ({
             value: categoria._id,
@@ -35,28 +36,23 @@ const AddProduct = () => {
         console.error('Erro ao buscar categorias:', error);
       }
     };
-  
+
     fetchData();
   }, []);
 
   const handleChangeValues = (evento) => {
-    setProdutForm({
+    setProductForm({
       ...productForm,
       [evento.target.name]: evento.target.value
     });
-    console.log(productForm);
   };
 
   const handleSubmit = (evento) => {
     evento.preventDefault();
-    const categoriesId = selected.map(category => {
-      return {
-        _id: category.value
-      };
-    });
+
     const product = {
       ...productForm,
-      categorias: categoriesId,
+      categoria: selected.length > 0 ? { _id: selected[0].value } : null, // Ajuste aqui
       precoUnitario: parseInt(productForm.precoUnitario),
       codigoBarra: parseInt(productForm.codigoBarra)
     };

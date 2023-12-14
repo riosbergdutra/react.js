@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { findAllProducts } from '../../services/productservice';
 const Admin = () => {
     const [products, setProducts] = useState([])
@@ -22,7 +22,7 @@ const Admin = () => {
     return (
         <section className='my-12 max-w-screen mx-auto px-6'>
             <div className='flex justify-end space-y-2'>
-                <button onClick={() => navigate('/add-product')} className='bg-primary w-44 px-2 py-3 text-white rounded-full transition duration-700 hover:scale-105'>
+                <button onClick={() => navigate('/admin/add-product')} className='bg-primary w-44 px-2 py-3 text-white rounded-full transition duration-700 hover:scale-105'>
                     Adicionar Produto
                 </button>
             </div>
@@ -67,7 +67,9 @@ const Admin = () => {
                     </td>
                     <td className='px-6 py-4 whitespace-nowrap flex flex-col h-24 items-center justify-center'>
                         <div className='flex items-center justify-center space-x-3'>
-                        <FaEdit className='cursor-pointer text-2xl text-blue-600' />
+                        <Link to={`/admin/edit-product/${product._id}`}>
+                        <   FaEdit className='cursor-pointer text-2xl text-blue-600' />
+                        </Link>
                         <MdDelete className='cursor-pointer text-2xl text-red-600' />    
                         </div>
                     </td>

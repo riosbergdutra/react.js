@@ -10,4 +10,19 @@ const findAllProducts = () => {
   .then((response) => response)
   .catch((err) => Promise.reject(err));
 }
-export { addProductApi, findAllProducts };
+const findProductById = async (id) => {
+  try {
+    const response = await api.get(`/produto/findById/${id}`);
+    return response.data; // Retorna apenas os dados da resposta
+} catch (error) {
+    console.error(error);
+    throw error; // Lança o erro para ser tratado no componente que chama esta função
+}
+};
+const updateProductById = (id, productEdit) => {
+ return api.put(`/produto/update/${id}`, productEdit)
+  .then((response) => response)
+  .catch((err) => Promise.reject(err));
+}
+
+export { addProductApi, findAllProducts, findProductById, updateProductById };

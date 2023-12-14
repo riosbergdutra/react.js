@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Product from '../product';
-import productsMock from '../../mock/products';
+import { findAllProducts } from '../../services/productservice';
 
 const Productlist = () => {
   const [categoriaTab, setCategoriaTab] = useState('Hamburger');
-  const [products, setProducts] = useState (productsMock)
+  const [products, setProducts] = useState ([])
 
+  useEffect(() =>{
+    getAllProducts()
+  },[])
+
+
+  const getAllProducts = async () => {
+    try {
+        const response = await findAllProducts();
+        const data = response.data;
+        setProducts(data);
+    } catch (error) {
+        console.error("Erro ao obter produtos:", error);
+    }
+};
   return (
     <>
       <section className='my-12 max-w-screen-xl mx-auto px-3'>

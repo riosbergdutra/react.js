@@ -5,5 +5,9 @@ const addProductApi = (product) => {
     .then((response) => response)
     .catch((err) => Promise.reject(err));  // Retornar uma Promise rejeitada em caso de erro
 };
-
-export { addProductApi };
+const findAllProducts = () => {
+ return api.get('/produto/findAll') 
+  .then((response) => response)
+  .catch((err) => Promise.reject(err));
+}
+export { addProductApi, findAllProducts };

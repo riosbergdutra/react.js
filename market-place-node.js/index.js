@@ -3,6 +3,8 @@ const ConnectToDatabase = require("./src/database/database");
 const cors = require('cors');
 const usuario = require("./src/router/usuario.router");
 
+const categoria = require('./src/router/categoria.router');
+
 const app = express();
 
 const port = 5000;
@@ -15,6 +17,8 @@ app.use(cors());
     
 
 app.use('/usuario', usuario );
+
+app.use('/categoria', categoria);
 
 app.get("/", (req, res) => {
     res.send({

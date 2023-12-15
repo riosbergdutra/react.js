@@ -10,6 +10,7 @@ import Register from './pages/register';
 import Admin from './pages/admin';
 import AddProduct from './pages/addproducts';
 import EditProduct from './pages/editproduct';
+import ProductInfo from './pages/productinfo';
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function App() {
         <Route path='/' element={
         <ProctectedRoute>
           <Home/>
+        </ProctectedRoute>
+        }/>
+         <Route path='/product/:id' element={
+        <ProctectedRoute>
+          <ProductInfo/>
         </ProctectedRoute>
         }/>
         <Route path='/login' element={<Login/>}/>

@@ -25,4 +25,10 @@ const updateProductById = (id, productEdit) => {
   .catch((err) => Promise.reject(err));
 }
 
-export { addProductApi, findAllProducts, findProductById, updateProductById };
+const deleteProductById = (id) => {
+  return api.delete(`/produto/remove/${id}`)
+   .then((response) => response)
+   .catch((err) => Promise.reject(err));
+ }
+
+export { addProductApi, findAllProducts, findProductById, updateProductById, deleteProductById };

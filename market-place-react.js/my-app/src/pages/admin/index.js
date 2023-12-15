@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
-import { findAllProducts } from '../../services/productservice';
+import { deleteProductById, findAllProducts } from '../../services/productservice';
 const Admin = () => {
     const [products, setProducts] = useState([])
     const navigate = useNavigate()
@@ -19,6 +19,14 @@ const Admin = () => {
             console.error("Erro ao obter produtos:", error);
         }
     };
+
+    const removeProduct =  async (id) => {
+        const answer = window.confirm('deseja excluir o produto ?')
+        if(answer) {
+            await  deleteProductById(id)
+            getAllProducts()
+        }
+    }
     return (
         <section className='my-12 max-w-screen mx-auto px-6'>
             <div className='flex justify-end space-y-2'>
@@ -70,7 +78,7 @@ const Admin = () => {
                         <Link to={`/admin/edit-product/${product._id}`}>
                         <   FaEdit className='cursor-pointer text-2xl text-blue-600' />
                         </Link>
-                        <MdDelete className='cursor-pointer text-2xl text-red-600' />    
+                        <MdDelete onClick={() =>removeProduct(product._id)} className='cursor-pointer text-2xl text-red-600' />    
                         </div>
                     </td>
                 </tr>

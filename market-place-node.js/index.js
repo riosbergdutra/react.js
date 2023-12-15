@@ -1,9 +1,9 @@
 const express = require("express");
 const ConnectToDatabase = require("./src/database/database");
-const cors = require('cors');
 const usuario = require("./src/router/usuario.router");
-
+const produto = require("./src/router/produto.router"); 
 const categoria = require('./src/router/categoria.router');
+const cors = require('cors');
 
 const app = express();
 
@@ -15,9 +15,8 @@ ConnectToDatabase();
 
 app.use(cors());
     
-
-app.use('/usuario', usuario );
-
+app.use("/usuario", usuario);
+app.use("/produto", produto);  
 app.use('/categoria', categoria);
 
 app.get("/", (req, res) => {

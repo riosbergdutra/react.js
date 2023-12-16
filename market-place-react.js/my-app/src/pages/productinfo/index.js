@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
 import { FiShoppingCart } from "react-icons/fi";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { findProductById } from '../../services/productservice';
 
 const ProductInfo = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState({})
-  const [quantity, setQuantity] = useState(1)
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
 
   const getProductById = useCallback(async () => {
     try {
@@ -16,7 +17,7 @@ const ProductInfo = () => {
     } catch (error) {
       console.error('Error fetching product by ID:', error);
     }
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,26 +29,16 @@ const ProductInfo = () => {
     }
 
     fetchData();
-  }, [getProductById])
+  }, [getProductById]);
 
   const addToCart = () => {
-    const productCart = [
-      {
-        ...product,
-        quantity: quantity,
-      }
-    ]
-    const storageCart = JSON.parse(localStorage.getItem('productCart'))
-    if(storageCart) {
-      productCart.push(
-        storageCart
-        )
-        localStorage.setItem('productCart', JSON.stringify(productCart))
-      }
+    const storageCart = JSON.parse(localStorage.getItem('productCart')) || [];
+    const updatedCart = [...storageCart, { ...product, quantity }];
 
-    localStorage.setItem('productCart', JSON.stringify(productCart))
+    localStorage.setItem('productCart', JSON.stringify(updatedCart));
+    navigate('/cart');
   }
-  
+
   return (
     <main className='max-w-screnn mx-auto px-6 my-3'>
       <div className='flex flex-col justify-center items-center h-screen'>
@@ -95,4 +86,4 @@ const ProductInfo = () => {
   );
 }
 
-export default ProductInfo
+export default ProductInfo;

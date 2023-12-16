@@ -11,6 +11,7 @@ import Admin from './pages/admin';
 import AddProduct from './pages/addproducts';
 import EditProduct from './pages/editproduct';
 import ProductInfo from './pages/productinfo';
+import Cart from './pages/cart';
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
         </ProctectedRoute>}/>
         <Route path='/admin/edit-product/:id' element={<ProctectedRoute>
           <EditProduct/>
+        </ProctectedRoute>}/>
+        <Route path='/cart' element={<ProctectedRoute>
+          <Cart/>
         </ProctectedRoute>}/>
 
         <Route path='/*' element={<Notfound/>} />

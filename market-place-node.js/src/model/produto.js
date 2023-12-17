@@ -26,7 +26,7 @@ const produtoSchema = new mongoose.Schema({
   categoria: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'Categoria', // Troque 'Categorias' pelo nome correto do modelo de categoria
+    ref: 'Categoria', 
   },
   createdAt: {
     type: Date,

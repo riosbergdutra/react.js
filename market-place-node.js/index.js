@@ -4,6 +4,7 @@ const usuario = require("./src/router/usuario.router");
 const produto = require("./src/router/produto.router"); 
 const categoria = require('./src/router/categoria.router');
 const cart = require("./src/router/cart.router")
+const pedido = require("./src/router/pedido.router")
 
 const cors = require('cors');
 
@@ -21,6 +22,8 @@ app.use("/usuario", usuario);
 app.use("/produto", produto);  
 app.use('/categoria', categoria);
 app.use('/cart', cart)
+app.use('/pedido', pedido)
+
 
 app.get("/", (req, res) => {
     res.send({

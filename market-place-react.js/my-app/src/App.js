@@ -12,6 +12,7 @@ import AddProduct from './pages/addproducts';
 import EditProduct from './pages/editproduct';
 import ProductInfo from './pages/productinfo';
 import Cart from './pages/cart';
+import Complete from './pages/complete';
 
 function App() {
   return (
@@ -43,7 +44,9 @@ function App() {
         <Route path='/cart' element={<ProctectedRoute>
           <Cart/>
         </ProctectedRoute>}/>
-
+        <Route path='/complete' element={<ProctectedRoute>
+          <Complete/>
+        </ProctectedRoute>}/>
         <Route path='/*' element={<Notfound/>} />
       </Routes>
       </AuthProvider>

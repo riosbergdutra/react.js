@@ -36,7 +36,7 @@ const updateProduto = async (id, produtoData) => {
 
 const deleteProduto = async (id) => {
   try {
-    await Produto.findByIdAndRemove(id);
+    await Produto.findByIdAndDelete(id);
   } catch (err) {
     throw err;
   }

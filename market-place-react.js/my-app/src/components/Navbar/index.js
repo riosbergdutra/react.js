@@ -24,7 +24,7 @@ const Navbar = () => {
           <div className=' flex items-center justify-end space-x-4'>
             <div className='relative flex cursor-pointer'>
               <span className='bg-primary w-4 h-4 rounded-full p-1 flex items-center justify-center text-white absolute -right-2 -top-2'></span>
-              <BsFillCartFill className='w-6 h-6 cursor-pointer' />
+                <BsFillCartFill className='w-6 h-6 cursor-pointer' onClick={() => navigate('/cart')} />
             </div>
             <p className='text-gray-700'>
                Bem Vindo, {userData.nome} !
